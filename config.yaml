@@ -1,0 +1,86 @@
+# Configuration for Computational Neuroscience Action Modeling
+
+# Environment Configuration
+environment:
+  type: "BehavioralTaskEnv"  # or "MultiAgentBehavioralEnv"
+  grid_size: 10
+  n_goals: 2
+  max_steps: 100
+  reward_scale: 1.0
+  noise_level: 0.1
+  n_agents: 3  # For multi-agent environment
+
+# Agent Configuration
+agent:
+  type: "DQN"  # or "PPO"
+  state_dim: null  # Auto-set from environment
+  action_dim: null  # Auto-set from environment
+  
+  # DQN-specific parameters
+  dqn:
+    lr: 0.001
+    gamma: 0.99
+    epsilon_start: 1.0
+    epsilon_end: 0.01
+    epsilon_decay: 0.995
+    batch_size: 64
+    buffer_size: 10000
+    target_update_freq: 100
+    hidden_dims: [128, 128]
+  
+  # PPO-specific parameters
+  ppo:
+    lr: 0.0003
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_epsilon: 0.2
+    value_coef: 0.5
+    entropy_coef: 0.01
+    max_grad_norm: 0.5
+    hidden_dims: [128, 128]
+
+# Training Configuration
+training:
+  n_episodes: 1000
+  eval_frequency: 50
+  save_frequency: 100
+  device: "cpu"  # or "cuda" if available
+
+# Signal Processing Configuration
+signal_processing:
+  window_pre: 0.5  # seconds
+  window_post: 1.0  # seconds
+  sampling_rate: 1000.0  # Hz
+  bandpass:
+    lowcut: 1.0  # Hz
+    highcut: 100.0  # Hz
+    order: 4
+
+# Dataset Generation Configuration
+dataset:
+  n_trials: 100
+  n_subjects: 10
+  n_conditions: 3
+  sampling_rate: 1000.0
+  trial_duration: 5.0  # seconds
+  output_dir: "data"
+
+# Visualization Configuration
+visualization:
+  style: "seaborn-v0_8"
+  figsize: [10, 6]
+  output_dir: "outputs/figures"
+  dpi: 300
+
+# Paths
+paths:
+  data_dir: "data"
+  outputs_dir: "outputs"
+  models_dir: "outputs/models"
+  figures_dir: "outputs/figures"
+
+# Experiment Configuration
+experiment:
+  name: "behavioral_modeling_experiment"
+  seed: 42
+  log_level: "INFO"
