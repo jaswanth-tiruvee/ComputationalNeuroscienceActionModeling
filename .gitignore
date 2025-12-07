@@ -27,11 +27,18 @@ ENV/
 
 # Data and outputs
 data/
-outputs/
 *.npz
 *.csv
 *.pt
 *.pth
+
+# Outputs - exclude everything in outputs/
+outputs/
+# But allow example outputs for documentation
+!outputs/README.md
+!outputs/figures/
+!outputs/figures/examples/
+!outputs/figures/examples/*.png
 
 # OS
 .DS_Store
